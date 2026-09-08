@@ -21,6 +21,7 @@ import {
   EmbeddingPurpose,
   getEmbeddingModelCatalogEntry,
   normalizeLocalEmbeddingConcurrency,
+  findEmbeddingModelCatalogEntry,
   isRemoteEmbeddingProvider,
   resolveEmbeddingReference,
   resolveIndexEmbeddingConcurrencyOverride,
@@ -1674,7 +1675,10 @@ function parseEmbeddingModelReference(
 }
 
 function embeddingModelReference(identity: EmbeddingModelIdentity): string {
-  return `${identity.provider}/${identity.name}`;
+  return (
+    findEmbeddingModelCatalogEntry(identity.provider, identity.name)
+      ?.reference ?? `${identity.provider}/${identity.name}`
+  );
 }
 
 function providerOptionsFingerprint(options: {

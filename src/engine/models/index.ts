@@ -13,6 +13,7 @@ export {
   resolveIndexEmbeddingConcurrencyOverride,
 } from "./local-embedding-parallelism.js";
 export {
+  findEmbeddingModelCatalogEntry,
   getEmbeddingModelCatalogEntry,
   listEmbeddingModels,
 } from "./catalog.js";
