@@ -43,6 +43,7 @@ export type CliOptions = {
   modelCacheDir?: string;
   device?: "auto" | "cpu" | "metal" | "vulkan" | "cuda";
   apiKey?: string;
+  providerNoAuth?: boolean;
   endpoint?: string;
   limit?: number;
   hybridQueries?: string[];
