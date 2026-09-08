@@ -15,6 +15,7 @@ export {
 export {
   getEmbeddingModelCatalogEntry,
   getRemoteEmbeddingProviderCatalogEntry,
+  isRemoteEmbeddingProvider,
   listEmbeddingModels,
   listRemoteEmbeddingProviders,
 } from "./catalog.js";

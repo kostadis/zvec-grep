@@ -21,6 +21,7 @@ import {
   EmbeddingPurpose,
   getEmbeddingModelCatalogEntry,
   normalizeLocalEmbeddingConcurrency,
+  isRemoteEmbeddingProvider,
   resolveEmbeddingReference,
   resolveIndexEmbeddingConcurrencyOverride,
   type CreateEmbeddingModelOptions,
@@ -1618,7 +1619,7 @@ function createServiceEmbeddingModel(
   serviceOptions: CreateZvecGrepOptions,
 ): EmbeddingModel {
   const model = createEmbeddingModel(reference, modelOptions);
-  if (model.info.provider !== "qwen") {
+  if (!isRemoteEmbeddingProvider(model.info.provider)) {
     return model;
   }
 
