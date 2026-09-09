@@ -50,6 +50,7 @@ export type ZvecGrepIndexOptions = {
   maxFileSizeBytes?: number;
   follow?: boolean;
   embeddingConcurrency?: number;
+  noPrefetch?: boolean;
   onProgress?: (progress: IndexProgress) => void;
   changedPaths?: readonly string[];
   signal?: AbortSignal;
@@ -64,6 +65,8 @@ export type ZvecGrepWriterContext = (
 
 export type ZvecGrepInfoOptions = {
   root?: string;
+  /** Discover an ancestor workspace; disable when preparing an exact-root write. */
+  discoverParents?: boolean;
   includeStatus?: boolean;
 };
 

@@ -203,6 +203,7 @@ Embedding options:
   --model-cache <path>              Local model cache directory
   --device <device>                 auto, cpu, metal, vulkan, cuda
   --embedding-concurrency <n>       Embedding concurrency limit (index only)
+  --no-prefetch                     Disable preparing the next batch during embedding
   --allow-remote                    Allow Remote Embedding for this command only
 
 Index concurrency limits llama.cpp contexts, Transformers.js calls in flight,

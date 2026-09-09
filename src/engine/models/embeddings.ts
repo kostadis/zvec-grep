@@ -59,6 +59,8 @@ export type EmbeddingModelInfo = Readonly<{
     maxBatchSize: number;
     /** Maximum embed() batches the runtime executes at once. */
     maxConcurrentBatches?: number;
+    /** Total text characters per indexing request, including metadata. */
+    maxBatchChars?: number;
     maxInputTokens?: number;
     maxImageBytes?: number;
   }>;

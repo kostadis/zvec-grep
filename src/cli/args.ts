@@ -351,6 +351,8 @@ export function parseArgs(args: readonly string[]): ParsedArgs {
         readOptionValue(commandArgs, ++index, arg),
         arg,
       );
+    } else if (arg === "--no-prefetch") {
+      options.noPrefetch = true;
     } else if (
       arg === "--embedding-concurrency" ||
       isLongOptionWithValue(arg, "--embedding-concurrency")
@@ -1028,6 +1030,12 @@ function validateCliShape(
   ) {
     throw new Error(
       "zg --index --drop cannot be combined with indexing options",
+    );
+  }
+
+  if (options.noPrefetch && (command !== "index" || options.drop)) {
+    throw new Error(
+      "--no-prefetch can only be used with --index without --drop",
     );
   }
 

@@ -176,6 +176,7 @@ export class DaemonBackend implements ZvecGrepDaemonBackend {
       input.root,
       this.options.serviceOptions,
       input.rebuild !== true,
+      false,
     );
     let modelLoadRequest: EmbeddingModelLoadRequest;
     try {
@@ -776,6 +777,7 @@ export class DaemonBackend implements ZvecGrepDaemonBackend {
     const before = await this.inspectRoot(
       runtime.canonicalRoot,
       includeInitialStatus,
+      false,
     );
     if (includeInitialStatus) {
       this.statusCache.set(runtime.canonicalRoot, before);
@@ -848,6 +850,7 @@ export class DaemonBackend implements ZvecGrepDaemonBackend {
               maxFileSizeBytes: input.maxFileSizeBytes,
               follow: input.follow,
               embeddingConcurrency: modelLoadRequest.embeddingConcurrency,
+              noPrefetch: input.noPrefetch,
               changedPaths: input.changedPaths,
               signal,
               onProgress: report,
@@ -1375,11 +1378,13 @@ export class DaemonBackend implements ZvecGrepDaemonBackend {
   private async inspectRoot(
     root: string,
     includeStatus: boolean,
+    discoverParents = true,
   ): Promise<ZvecGrepInfoResult> {
     return await (this.options.inspectRoot ?? inspectRoot)(
       root,
       this.options.serviceOptions,
       includeStatus,
+      discoverParents,
     );
   }
 }
@@ -1424,6 +1429,7 @@ function assertDropOnlyInput(input: ZvecGrepIndexInput): void {
     [input.maxFileSizeBytes !== undefined, "maxFileSizeBytes"],
     [input.follow !== undefined, "follow"],
     [input.embeddingConcurrency !== undefined, "embeddingConcurrency"],
+    [input.noPrefetch !== undefined, "noPrefetch"],
     [input.wait !== undefined, "wait"],
   ];
   const names = conflicts
