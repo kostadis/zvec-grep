@@ -309,14 +309,21 @@ test("Streamable HTTP serves health, MCP contracts and a real cached index searc
   );
   const refreshed = await clients[0].callTool({
     name: "zvec_grep_index",
-    arguments: { root: join(root, "src"), wait: true },
+    arguments: {
+      root: join(root, "src"),
+      embedding: "test/deterministic",
+      wait: true,
+    },
   });
-  assert.equal(refreshed.structuredContent.root, canonicalRoot);
+  // Explicit index roots are honored even beneath an indexed parent.
+  const canonicalSrc = await realpath(join(root, "src"));
+  assert.equal(refreshed.structuredContent.root, canonicalSrc);
+  await backend.scheduler.waitForRootIdle(canonicalSrc);
   await backend.scheduler.waitForRootIdle(canonicalRoot);
   assert.equal(refreshed.structuredContent.state, "succeeded");
   const refreshedSearch = await clients[0].callTool({
     name: "zvec_grep_search",
-    arguments: { root, fts: "updatedAnswer" },
+    arguments: { root: canonicalSrc, fts: "updatedAnswer" },
   });
   assert.equal(refreshedSearch.isError, undefined);
   assertAdminSearchStructured(refreshedSearch);

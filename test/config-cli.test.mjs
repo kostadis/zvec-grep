@@ -104,7 +104,7 @@ test("config model set persists independent local model settings", async (t) => 
   );
   await execFileAsync(
     process.execPath,
-    [cliPath, "config", "provider", "set", "dgx", "--no-auth"],
+    [cliPath, "--config", "provider", "set", "dgx", "--no-auth"],
     { env, cwd: workspace },
   );
   await execFileAsync(
@@ -306,7 +306,7 @@ test("config model set rejects missing and incompatible settings", async () => {
   assert.throws(
     () =>
       parseArgs([
-        "config",
+        "--config",
         "model",
         "set",
         "local/embeddinggemma-300m",

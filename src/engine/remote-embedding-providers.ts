@@ -24,6 +24,10 @@ export function getRemoteEmbeddingProviderCatalogEntry(
   ];
 }
 
+/**
+ * Only catalogued providers are remote. A new remote provider must be added to
+ * REMOTE_EMBEDDING_PROVIDER_CATALOG before it is subject to authorization.
+ */
 export function isRemoteEmbeddingProvider(provider: string): boolean {
-  return provider !== "local";
+  return Object.hasOwn(REMOTE_EMBEDDING_PROVIDER_CATALOG, provider);
 }
